@@ -10,106 +10,35 @@
       }
     </style>
     
-    <link rel="stylesheet" href="spark.css" type="text/css" media="all" charset="utf-8" />
+    <link rel="stylesheet" href="https://cc.readytalk.com/cc/css/spark/css/spark.css" type="text/css" media="all" charset="utf-8" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-    <script type="text/javascript" src="spin.js"></script>
+    <script type="text/javascript" src="spark-spin-btn.js"></script>
   </head>
   <body>
-    <h1>Spark & GIF Spinner</h1>
+    <h1>Spark Spin Buttons</h1>
     <p>Click to toggle state</p>
     <table class="spin-examples">
       <tr>
         <td><a href="#" class="btn">You Spin Me</a></td>
-        <td><a href="#" class="btn disabled"><i class="icon spin"></i>Right Round</a></td>
+        <td><a href="#" class="btn disabled">Right Round</a></td>
       </tr>
       <tr>
         <td><a href="#" class="btn btn-large">Baby</a></td>
-        <td><a href="#" class="btn btn-large disabled"><i class="icon spin"></i>Right Round</a></td>
+        <td><a href="#" class="btn btn-large disabled"></i>Right Round</a></td>
       </tr>
     </table>
-    
-    <h1>Spark & spin.js</h1>
-    <p>
-        <td><a href="#" class="btn"><i class="icon sspin"></i>You Spin Me</a></td>
-    </p>
 
     <script type="text/javascript">
-//      $.fn.spin = function(enabled) {
-//        return this.each(function() {
-//          $this = $(this),
-//          $this.prepend($('<i class="icon spin"></i>'));
-//        };
-//      };
-
-$.fn.spin2 = function(opts, color) {
-		var presets = {
-			"tiny": { lines: 8, length: 2, width: 2, radius: 3 },
-			"small": { lines: 8, length: 4, width: 3, radius: 5 },
-			"large": { lines: 10, length: 8, width: 4, radius: 8 }
-		};
-		if (Spinner) {
-			return this.each(function() {
-				var $this = $(this),
-					data = $this.data();
-
-				if (data.spinner) {
-					data.spinner.stop();
-					delete data.spinner;
-				}
-				if (opts !== false) {
-					if (typeof opts === "string") {
-						if (opts in presets) {
-							opts = presets[opts];
-						} else {
-							opts = {};
-						}
-						if (color) {
-							opts.color = color;
-						}
-					}
-					data.spinner = new Spinner($.extend({color: $this.css('color')}, opts)).spin(this);
-				}
-			});
-		} else {
-			throw "Spinner class not available.";
-		}
-	};
-
       $(document).ready(function() {
         $('.spin-examples a.btn').click(function(e) {
           var btn = $(this);
-          var spin = btn.children('i.spin');
-          if (spin.length) {
-            spin.remove();
-            btn.removeClass('disabled');
-          } else {
-            btn.prepend($('<i class="icon spin"></i>'));
-            btn.addClass('disabled');
-          }
+          btn.toggleClass('disabled');
+          btn.spin(btn.hasClass('disabled'));
           e.preventDefault(); 
         });
 
-
-        var opts = {
-          lines: 9, // The number of lines to draw
-          length: .9, // The length of each line
-          width: 3, // The line thickness
-          radius: 4, // The radius of the inner circle
-          color: '#333', // #rgb or #rrggbb
-          speed: 1.5, // Rounds per second
-          trail: 30, // Afterglow percentage
-          shadow: false, // Whether to render a shadow
-          hwaccel: false // Whether to use hardware acceleration
-        };
-
-        //$('i.sspin').spin(opts);
-
-        $('i.sspin').click(function (e) {
-          $(this).spin2(opts);
-        }); 
-        //$('.btn').spin();
-        
+        $('.btn.disabled').spin();
       });
     </script>
   </body>
